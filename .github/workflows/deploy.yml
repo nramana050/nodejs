@@ -15,9 +15,9 @@ jobs:
 
     - name: Set up SSH
       run: |
-        mkdir -p ~/.ssh/id_rsa
+        mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+        chmod 700 ~/.ssh/id_rsa
         ssh-keyscan -H 13.232.159.232 >> ~/.ssh/known_hosts
       env:
         SSH_AUTH_SOCK: /dev/null  # Disables SSH agent to prevent issues with the private key

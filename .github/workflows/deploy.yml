@@ -24,4 +24,4 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh ec2-user@your-ec2-instance-ip-address 'cd /path/to/your/app && git pull origin main && ./deploy.sh'
+        ssh 13.232.159.232  'cd /path/to/your/app && git pull origin main && ./deploy.sh'

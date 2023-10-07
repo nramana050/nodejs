@@ -1,0 +1,78 @@
+1. Create a New GitHub Repository and Push Code
+
+cd /path/to/your/nodejs-repo
+
+# Initialize a new Git repository
+git init
+
+gh repo create your-repo-name --public
+
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/your-username/your-repo-name.git
+git push -u origin main
+
+2. Create Staging and Production Branches:
+
+# Create a new staging branch and switch to it
+git checkout -b staging
+
+# Push the staging branch to GitHub
+git push origin staging
+
+# Create a new production branch and switch to it
+git checkout -b production
+
+# Push the production branch to GitHub
+git push origin production
+
+3. Set Up GitHub Actions CI:
+Create a .github/workflows/ci.yml file in your repository for the GitHub Actions workflow:
+
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+      - production
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies and run tests
+      run: |
+        npm install
+        npm test
+4  Automatic Deployment to Staging on Push to Staging:
+Set up a separate GitHub Actions workflow for automatic deployment to your AWS EC2 staging instance when code is pushed or merged into the staging branch. 
+
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to Staging EC2
+      run: |
+        # Add your deployment commands here
+        # For example, SSH into your EC2 and pull the latest code
+        ssh ec2-user@your-staging-server-ip "cd /path/to/your/app && git pull origin staging && npm install && npm run build"
+
+

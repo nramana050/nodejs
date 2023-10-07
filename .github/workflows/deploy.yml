@@ -24,5 +24,5 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -i /path/to/your/~/.ssh/id_rsa ubuntu@13.232.159.232 'cd /home/ubuntu/nodejs && git pull origin main && ./deploy.sh'
+        ssh -i ~/.ssh/id_rsa ubuntu@13.232.159.232 'cd /path/to/your/app && git pull origin main && ./deploy.sh'
 

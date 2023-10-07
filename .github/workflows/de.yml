@@ -1,19 +1,21 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - staging
+
 jobs:
-  deploy_staging:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests
-      run: npm test
-
     - name: Deploy to Staging EC2
       run: |
-        ssh <ubuntu>@<13.232.159.232> "cd /path/to/app && git pull origin staging && npm install && npm run build && pm2 restart <your-app-name>"
-      env:
-        STAGING_SSH_PRIVATE_KEY: ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
+        # Add your deployment commands here
+        # For example, SSH into your EC2 and pull the latest code
+        ssh ec2-user@ 13.232.159.232 "cd /path/to/your/app && git pull origin staging && npm install && npm run build"
+

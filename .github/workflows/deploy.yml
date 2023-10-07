@@ -18,7 +18,7 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H your-ec2-instance-ip-address >> ~/.ssh/known_hosts
+        ssh-keyscan -H 13.232.159.232 >> ~/.ssh/known_hosts
       env:
         SSH_AUTH_SOCK: /dev/null  # Disables SSH agent to prevent issues with the private key
 

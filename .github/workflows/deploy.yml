@@ -1,0 +1,27 @@
+name: Deploy to EC2 Staging
+
+on:
+  push:
+    branches:
+      - main  # Adjust the branch name if necessary
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H your-ec2-instance-ip-address >> ~/.ssh/known_hosts
+      env:
+        SSH_AUTH_SOCK: /dev/null  # Disables SSH agent to prevent issues with the private key
+
+    - name: Deploy to EC2
+      run: |
+        ssh ec2-user@your-ec2-instance-ip-address 'cd /path/to/your/app && git pull origin main && ./deploy.sh'

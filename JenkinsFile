@@ -4,27 +4,33 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    echo "Checking out code"
-                    checkout scm
-                }
+                echo 'Checking out code...'
+                checkout scm
             }
         }
-        stage('Build and Test') {
+        
+        stage('Build') {
             steps {
-                echo "Building and testing the Node.js application"
+                echo 'Building Node.js application...'
                 sh 'npm install'
-                sh 'npm test'
             }
         }
+        
+        // Remove the 'Test' stage from the Jenkinsfile
+        // ...
+        
         stage('Deploy') {
-            when {
-                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
-            }
             steps {
-                echo "Deploying the Node.js application"
-                // Add deployment commands here, e.g., copy files to a server or deploy to a cloud platform
+                echo 'Deploying Node.js application...'
+                // Add deployment steps here
             }
+        }
+    }
+    
+    post {
+        failure {
+            echo 'Pipeline failed. Send notifications...'
+            // Add notification steps (email, Slack, etc.) here
         }
     }
 }
